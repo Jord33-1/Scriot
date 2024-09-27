@@ -1,0 +1,18 @@
+local proximityPrompt = script.Parent.ProximityPrompt
+local playerQueue = {}
+
+proximityPrompt.Triggered:Connect(function(player)
+    table.insert(playerQueue, player)
+    print(player.Name .. " has joined the queue!")
+end)
+
+local exitButton = game.Workspace.ExitQueueButton
+
+exitButton.ClickDetector.MouseClick:Connect(function(player)
+    for i, queuedPlayer in ipairs(playerQueue) do
+        if queuedPlayer == player then
+            table.remove(playerQueue, i)
+            print(player.Name .. " has left the queue!")
+        end
+    end
+end)
